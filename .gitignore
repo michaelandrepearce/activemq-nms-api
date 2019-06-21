@@ -7,3 +7,5 @@ build/
 .idea/
 *.csproj.user
 
+
+_site/

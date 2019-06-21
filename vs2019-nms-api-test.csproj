@@ -7,7 +7,7 @@
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>net40;net452;netstandard2.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Apache.NMS.Test</PackageId>
     <Version>1.8.0</Version>
@@ -25,27 +25,41 @@
 
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>keyfile\NMSKey.snk</AssemblyOriginatorKeyFile>
+    <AssemblyName>Apache.NMS.Test</AssemblyName>
+
+    <IncludeSource>True</IncludeSource>
+    <IncludeSymbols>True</IncludeSymbols>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>build\netstandard2.0\release</OutputPath>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>build\netstandard2.0\debug</OutputPath>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-  </PropertyGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="api\**" />
     <Compile Remove="obj\**" />
+    <Compile Remove="build\**" />
     <Compile Remove="Resources\**" />
     <Compile Remove="src\main\**" />
+    <Compile Remove="_site\**" />
+    <EmbeddedResource Remove="api\**" />
+    <EmbeddedResource Remove="build\**" />
     <EmbeddedResource Remove="obj\**" />
     <EmbeddedResource Remove="Resources\**" />
     <EmbeddedResource Remove="src\test\**" />
+    <EmbeddedResource Remove="_site\**" />
+    <None Remove="api\**" />
+    <None Remove="build\**" />
     <None Remove="obj\**" />
     <None Remove="Resources\**" />
     <None Remove="src\main\**" />
+    <None Remove="_site\**" />
   </ItemGroup>
 
   <ItemGroup>
